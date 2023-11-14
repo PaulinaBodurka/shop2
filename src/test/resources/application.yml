@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   datasource:
     driver-class-name: org.h2.Driver
@@ -10,7 +12,7 @@ spring:
 
 
   #server:
-  #  port: 8083
+  #  port: 8080
   #spring:
   #  datasource:
   #    username: postgres
