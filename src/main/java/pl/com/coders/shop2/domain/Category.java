@@ -1,30 +1,32 @@
 package pl.com.coders.shop2.domain;
 
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product {
+@Table(name ="category")
+public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name ="category", nullable = false )
+    @OneToMany(mappedBy = "category")
+    private Set<Product> products;
+
     private String name;
-    private String description;
-    private BigDecimal price;
-    private int quantity;
 
     @CreationTimestamp
     private LocalDateTime created;

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pl.com.coders.shop2.domain.Category;
 import pl.com.coders.shop2.domain.Product;
 import pl.com.coders.shop2.service.ProductService;
 
@@ -13,10 +14,11 @@ import pl.com.coders.shop2.service.ProductService;
 public class ProductController {
 
     private final ProductService productService;
+    private final Category category;
 
     @PostMapping
-    public Product create(@RequestBody Product product) {
-        return productService.create(product);
+    public Product create(@RequestBody Product product, Category category) throws Exception {
+        return productService.create(product, category);
     }
 
     @GetMapping("/{id}")
