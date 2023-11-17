@@ -32,4 +32,5 @@ public class Category {
     private LocalDateTime created;
     @UpdateTimestamp
     private LocalDateTime updated;
+
 }
