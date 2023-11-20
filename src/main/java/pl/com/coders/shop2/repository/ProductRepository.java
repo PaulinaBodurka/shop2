@@ -1,5 +1,7 @@
 package pl.com.coders.shop2.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.coders.shop2.domain.Category;
@@ -12,8 +14,8 @@ import java.util.List;
 
 @Repository
 public class ProductRepository {
-    @PersistenceContext
 
+    @PersistenceContext
     private final EntityManager entityManager;
 
     public ProductRepository(EntityManager entityManager){
@@ -21,16 +23,10 @@ public class ProductRepository {
     }
 
     @Transactional
-    public Product add(Product product, Long categoryId) throws Exception {
-        Category category = entityManager.find(Category.class, categoryId );
-        if(category == null){
-            throw new Exception("Category with this id not exist" + categoryId);
-        }
-        entityManager.persist(product);
-        entityManager.persist(category);
+    public Product add(Product product) {
         product.setCreated(LocalDateTime.now());
         product.setUpdated(LocalDateTime.now());
-
+        entityManager.persist(product);
         return product;
     }
 

@@ -14,12 +14,10 @@ import pl.com.coders.shop2.service.ProductService;
 public class ProductController {
 
     private final ProductService productService;
-    private final Category category;
 
     @PostMapping
-    public Product create(@RequestBody Product product, Category category) throws Exception {
-        return productService.create(product, category);
-    }
+    public Product create(@RequestBody Product product)
+    {return productService.create(product);}
 
     @GetMapping("/{id}")
     public Product get(@PathVariable Long id) {
