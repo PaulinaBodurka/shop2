@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -12,17 +13,15 @@ import pl.com.coders.shop2.domain.Category;
 import pl.com.coders.shop2.domain.Product;
 
 import java.math.BigDecimal;
-
 import static org.junit.jupiter.api.Assertions.*;
+
 @ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
+@SpringBootTest
 class ProductRepositoryTest {
 
     @Autowired
     public ProductRepository productRepository;
 
-    @Autowired
     private Category category;
 
     @BeforeEach
@@ -48,10 +47,20 @@ class ProductRepositoryTest {
 
     @Test
     void get() {
+        Product product = Product.builder()
+                .name("pomarancza")
+                .description("opis")
+                .quantity(20)
+                .price(new BigDecimal("40.5"))
+                .category(category)
+                .build();
+        productRepository.get(Long.valueOf(product.getName()));
+        assertEquals("pomarancza", productRepository.get(Long.valueOf(product.getName())));
     }
 
     @Test
     void delete() {
+
     }
 
     @Test
