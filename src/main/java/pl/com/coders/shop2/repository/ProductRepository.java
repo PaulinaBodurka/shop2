@@ -10,6 +10,7 @@ import pl.com.coders.shop2.domain.Product;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -20,6 +21,12 @@ public class ProductRepository {
 
     public ProductRepository(EntityManager entityManager){
         this.entityManager = entityManager;
+    }
+
+    List<Product> products = new ArrayList<>();
+
+    public List<Product>products() {
+         return products;
     }
 
     @Transactional
@@ -43,8 +50,15 @@ public class ProductRepository {
     }
 
     @Transactional
+    public boolean deleteByProduct(Product product) {
+        Product toDeleteProduct = get(product.getId());
+        entityManager.remove(toDeleteProduct);
+        return true;
+    }
+
+    @Transactional
     public Product update(Product product, Long id) {
-        Product old = get(id);
+        Product old = get(product.getId());
         old.setName(product.getName());
         old.setDescription(product.getDescription());
         old.setPrice(product.getPrice());
