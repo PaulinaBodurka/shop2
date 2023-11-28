@@ -21,7 +21,7 @@ public class ProductService {
         return productRepository.delete(id);
     }
 
-    public Product update(Product product, Long id) {
-        return productRepository.update(product,id);
+    public Product update(Product product) {
+        return productRepository.update(product);
     }
 }

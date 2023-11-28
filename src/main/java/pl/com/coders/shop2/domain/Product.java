@@ -16,11 +16,12 @@ import java.time.LocalDateTime;
 @Builder
 @Table(name = "PRODUCT")
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name ="category", nullable = false )
     private Category category;
 

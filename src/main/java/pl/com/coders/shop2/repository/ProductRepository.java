@@ -23,16 +23,12 @@ public class ProductRepository {
         this.entityManager = entityManager;
     }
 
-    List<Product> products = new ArrayList<>();
-
-    public List<Product>products() {
-         return products;
-    }
 
     @Transactional
     public Product add(Product product) {
         product.setCreated(LocalDateTime.now());
         product.setUpdated(LocalDateTime.now());
+        entityManager.merge(product.getCategory());
         entityManager.persist(product);
         return product;
     }
@@ -57,7 +53,7 @@ public class ProductRepository {
     }
 
     @Transactional
-    public Product update(Product product, Long id) {
+    public Product update(Product product) {
         Product old = get(product.getId());
         old.setName(product.getName());
         old.setDescription(product.getDescription());
